@@ -142,7 +142,7 @@ def main():
         obs_colors = [color_from_id(o.id) for o in observations[0]]
 
         # Log visualization data
-        rr.set_time_sequence('frame', timestamps[t])
+        rr.set_time('frame', sequence=timestamps[t])
         rr.log('trajectory', rr.LineStrips3D(trajectory_odom_t), static=True)
 
         rr.log(

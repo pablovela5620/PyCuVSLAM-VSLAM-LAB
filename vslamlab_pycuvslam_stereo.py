@@ -145,7 +145,7 @@ def main():
         trajectory_odom.append([timestamps[t]] + list(odom_pose.translation) + list(odom_pose.rotation))
        
         # Visualize
-        rr.set_time_sequence("frame", t)
+        rr.set_time("frame", sequence=t)
         rr.log("world/trajectory", rr.LineStrips3D(trajectory_odom_t), static=True)
         rr.log(
             "world/camera_0",
