@@ -194,6 +194,12 @@ def main():
     last_camera_timestamp = None
     imu_count_since_last_camera = 0
     frame_id = 0
+    # Upstream bug workaround: the camera branch references accel_data/gyro_data
+    # in an `if accel_data ...` check, but those are only assigned in the IMU branch.
+    # If a camera frame tracks successfully before any IMU arrives, you get
+    # UnboundLocalError. Initializing to None makes the check safely fall through.
+    accel_data = None
+    gyro_data = None
     for frame_metadata in frames_metadata:
         timestamp = frame_metadata['timestamp']
         if frame_metadata['type'] == 'imu':
