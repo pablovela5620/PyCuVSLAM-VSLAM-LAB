@@ -143,18 +143,18 @@ def main():
                             name="IMU Acceleration",
                             origin="world/imu/accel",
                             overrides={
-                                "world/imu/accel/x": rr.SeriesLine.from_fields(color=[255, 0, 0]),
-                                "world/imu/accel/y": rr.SeriesLine.from_fields(color=[0, 255, 0]),
-                                "world/imu/accel/z": rr.SeriesLine.from_fields(color=[0, 0, 255]),
+                                "world/imu/accel/x": rr.SeriesLines.from_fields(colors=[[255, 0, 0]]),
+                                "world/imu/accel/y": rr.SeriesLines.from_fields(colors=[[0, 255, 0]]),
+                                "world/imu/accel/z": rr.SeriesLines.from_fields(colors=[[0, 0, 255]]),
                             },
                         ),
                         rrb.TimeSeriesView(
                             name="IMU Angular Velocity",
                             origin="world/imu/gyro",
                             overrides={
-                                "world/imu/gyro/x": rr.SeriesLine.from_fields(color=[255, 0, 0]),
-                                "world/imu/gyro/y": rr.SeriesLine.from_fields(color=[0, 255, 0]),
-                                "world/imu/gyro/z": rr.SeriesLine.from_fields(color=[0, 0, 255]),
+                                "world/imu/gyro/x": rr.SeriesLines.from_fields(colors=[[255, 0, 0]]),
+                                "world/imu/gyro/y": rr.SeriesLines.from_fields(colors=[[0, 255, 0]]),
+                                "world/imu/gyro/z": rr.SeriesLines.from_fields(colors=[[0, 0, 255]]),
                             },
                         )
                         ])
@@ -244,7 +244,7 @@ def main():
         gravity = tracker.get_last_gravity()
 
         # Visualize
-        rr.set_time_sequence("frame", frame_id)
+        rr.set_time("frame", sequence=frame_id)
         rr.log("world/trajectory", rr.LineStrips3D(trajectory_odom_t), static=True)
         rr.log(
             "world/camera_0",
@@ -277,13 +277,13 @@ def main():
             rr.Arrows3D(vectors=gravity, colors=[[255, 0, 0]], radii=0.015)
         )
         if accel_data and len(accel_data) >= 3:
-            rr.log("world/imu/accel/x", rr.Scalar(accel_data[0]), static=False)
-            rr.log("world/imu/accel/y", rr.Scalar(accel_data[1]), static=False)
-            rr.log("world/imu/accel/z", rr.Scalar(accel_data[2]), static=False)
+            rr.log("world/imu/accel/x", rr.Scalars(accel_data[0]), static=False)
+            rr.log("world/imu/accel/y", rr.Scalars(accel_data[1]), static=False)
+            rr.log("world/imu/accel/z", rr.Scalars(accel_data[2]), static=False)
         if gyro_data and len(gyro_data) >= 3:
-            rr.log("world/imu/gyro/x", rr.Scalar(gyro_data[0]), static=False)
-            rr.log("world/imu/gyro/y", rr.Scalar(gyro_data[1]), static=False)
-            rr.log("world/imu/gyro/z", rr.Scalar(gyro_data[2]), static=False)
+            rr.log("world/imu/gyro/x", rr.Scalars(gyro_data[0]), static=False)
+            rr.log("world/imu/gyro/y", rr.Scalars(gyro_data[1]), static=False)
+            rr.log("world/imu/gyro/z", rr.Scalars(gyro_data[2]), static=False)
 
         frame_id += 1
 
